@@ -34,3 +34,7 @@ function X = runNewton(x0, f, J, maxIter)
         X(:,k+1) = xk - J(xk)\f(xk);   % Solve J*s = f
     end
 end
+
+%% ---- Compute iterates ----
+X1 = runNewton(x0_1, f, J, maxIter);
+X2 = runNewton(x0_2, f, J, maxIter);
