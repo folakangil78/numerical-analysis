@@ -86,3 +86,12 @@ f = @(x) exp(x) ./ (cos(x).^3 + sin(x).^3);
 k = 1:16;
 h = 10.^(-k);
 errors = zeros(size(h));
+
+% Compute the numerical derivative and the error for each h
+for i = 1:length(k)
+    % Finite difference approximation
+    num_deriv = (f(x0 + h(i)) - f(x0)) / h(i);
+    
+    % Calculate the absolute error
+    errors(i) = abs(num_deriv - exact_deriv);
+end
