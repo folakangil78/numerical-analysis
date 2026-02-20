@@ -20,3 +20,17 @@ maxIter = 5;
 % Starting points
 x0_1 = [2; 3];
 x0_2 = [-1.5; 2];
+
+%% ---- Newton iteration function ----
+newton2D = @(x0) ...
+    arrayfun(@(k) 0, 1);  % dummy (we implement below)
+
+function X = runNewton(x0, f, J, maxIter)
+    X = zeros(2, maxIter+1);
+    X(:,1) = x0;
+
+    for k = 1:maxIter
+        xk = X(:,k);
+        X(:,k+1) = xk - J(xk)\f(xk);   % Solve J*s = f
+    end
+end
