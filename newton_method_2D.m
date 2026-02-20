@@ -50,3 +50,15 @@ hold on; grid on;
 
 contour(x,y,F1,[0 0],'LineWidth',2,'LineColor','b');
 contour(x,y,F2,[0 0],'LineWidth',2,'LineColor','r');
+
+%% ---- Plot Newton iterates ----
+plot(X1(1,:), X1(2,:), 'ko-','LineWidth',2,'MarkerSize',8);
+plot(X2(1,:), X2(2,:), 'mo-','LineWidth',2,'MarkerSize',8);
+
+legend('S_1','S_2','Start (2,3)','Start (-1.5,2)','Location','best');
+
+xlabel('x');
+ylabel('y');
+title('Newton Method in 2D');
+
+axis equal;
