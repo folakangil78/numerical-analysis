@@ -71,3 +71,18 @@ for i = 1:length(n_values)
     fprintf('  Numerically computed:     %e\n', numerical_val);
     fprintf('  Condition number cond(H): %e\n\n', condition_num);
 end
+
+% Part (c)
+
+% Define the exact derivative given in the problem
+exact_deriv = 3.101766393836051;
+x0 = pi/4;
+
+% Define the function f(x) using an anonymous function
+% We use element-wise operations (./, .^) just as good practice
+f = @(x) exp(x) ./ (cos(x).^3 + sin(x).^3);
+
+% Define the range for k and pre-allocate arrays
+k = 1:16;
+h = 10.^(-k);
+errors = zeros(size(h));
