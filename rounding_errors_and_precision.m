@@ -95,3 +95,11 @@ for i = 1:length(k)
     % Calculate the absolute error
     errors(i) = abs(num_deriv - exact_deriv);
 end
+
+% Find the best approximation (minimum error)
+[min_error, best_index] = min(errors);
+best_h = h(best_index);
+
+% Print the best result to the console
+fprintf('--- Results for Part (c) ---\n');
+fprintf('The minimum error is %e, which occurs at h = 10^-%d\n\n', min_error, k(best_index));
