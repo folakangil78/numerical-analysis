@@ -144,13 +144,47 @@ title('Error of Finite Difference Approximation vs. Step Size');
 % Set format to long to see the digits of accuracy
 format long;
 
-% 1. Define the given parameters
+% Define the given parameters
 C = 1.0;
 r = 0.025;
 n = 10^16;
 
-% 2. Calculate using the naive/standard formula provided in equation (1)
+% Calculate using the naive/standard formula provided in equation (1)
 f_naive = C * (1 + r/n)^n;
 
-% 3. Calculate using the limit approximation for reference
+% Calculate using the limit approximation for reference
 f_limit = exp(0.025);
+
+% Calculate using a numerically stable alternative method (exact formula, rewritten)
+% use the identity (1+x)^n = exp(n * ln(1+x)) and MATLAB's log1p function
+f_stable = C * exp(n * log1p(r/n));
+
+fprintf('--- Results for Part (d): Compound Interest Rounding Error ---\n\n');
+fprintf('Naive formula result:           %f\n', f_naive);
+fprintf('Limit approximation (exp(r)):   %2.15f\n', f_limit);
+fprintf('Stable evaluation (log1p):      %2.15f\n\n', f_stable);
+
+% This is the same machine epsilon issue we see in part (a).
+% The value of r/n is 0.025 / 10^16 = 2.5 * 10^-18.
+% The machine epsilon in IEEE double precision is roughly 2.22 * 10^-16.
+% Because 2.5 * 10^-18 is much smaller than machine epsilon, adding it 
+% to 1 results in the computer rounding it off to exactly 1. 
+% Therefore, the expression inside the parenthesis evaluates to exactly 1. 
+% Taking 1 to the power of 10^16 simply yields 1.0. The growth rate was 
+% completely lost to finite precision.
+
+% Evaluating f without using approximation:
+% Yes. We can use the mathematical property that y = a^b is equivalent 
+% to y = exp(b * ln(a)). 
+% Applied to our formula: (1 + r/n)^n = exp(n * ln(1 + r/n)).
+%
+% However, simply computing log(1 + r/n) will still suffer from rounding 
+% errors because 1 + r/n still evaluates to 1. To fix this, we use 
+% specialized matlab function
+% called `log1p(x)`. This function is specifically designed to compute 
+% ln(1 + x) accurately for very small values of x without actually performing 
+% the addition 1 + x first.
+%
+% By evaluating f as C * exp(n * log1p(r/n)), we bypass the 
+% addition step that causes the loss of significance, yielding an exact, 
+% accurate result without relying on limit approximation
