@@ -4,10 +4,18 @@ format long;
 
 % Part (a): Evaluating variables 'a' and 'b'
 
-% 1. Evaluate 'a'
+% Evaluate 'a'
 a_computer = (1 - 1) + 10^-16;
 a_exact = 10^-16; % Analytical result
 
 fprintf('--- Results for a ---\n');
 fprintf('Analytical exact result: %2.20f\n', a_exact);
 fprintf('Computer result:         %2.20f\n\n', a_computer);
+
+% Evaluate 'b'
+b_computer = 1 - (1 + 10^-16);
+b_exact = -10^-16; % Analytical result
+
+fprintf('--- Results for b ---\n');
+fprintf('Analytical exact result: %2.20f\n', b_exact);
+fprintf('Computer result:         %2.20f\n\n', b_computer);
