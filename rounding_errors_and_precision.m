@@ -114,3 +114,27 @@ xlabel('Step size (h)');
 ylabel('Absolute Error');
 title('Error of Finite Difference Approximation vs. Step Size');
 
+
+% Reverse x-axis so that smaller h values (like 10^-16) are on the right
+% or leave it standard. Have left it standard (smaller h on left).
+% set(gca, 'XDir', 'reverse'); 
+
+% What's observed as h becomes smaller:
+
+% When looking at the log-log plot, the error graph forms a "V" shape. 
+% Initially, as h decreases from 10^-1 to about 10^-8, the approximation 
+% gets better and the error steadily drops. This is the mathematical 
+% truncation error shrinking. 
+% 
+% However, as h gets smaller than 10^-8, the error goes up
+% This happens because f(x0 + h) and f(x0) become 
+% so similar that subtracting them causes "catastrophic cancellation" 
+% due to finite precision. You lose significant digits in the numerator, 
+% and then dividing by a tiny h heavily amplifies that rounding error.
+%
+% h that gives best approximation:
+
+% The best approximation typically occurs around h = 10^-8 (roughly the 
+% square root of machine epsilon, which is ~10^-16). At this point, the 
+% trade-off between truncation error and floating-point 
+% rounding error is balanced.
