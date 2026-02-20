@@ -67,3 +67,5 @@ ylabel('y');
 title('Newton Method in 2D');
 
 axis equal;
+
+%% end
