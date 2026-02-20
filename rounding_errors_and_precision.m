@@ -103,3 +103,14 @@ best_h = h(best_index);
 % Print the best result to the console
 fprintf('--- Results for Part (c) ---\n');
 fprintf('The minimum error is %e, which occurs at h = 10^-%d\n\n', min_error, k(best_index));
+
+% Plot the results on a log-log scale
+figure;
+loglog(h, errors, 'o-', 'LineWidth', 1.5, 'MarkerFaceColor', 'b');
+grid on;
+
+% Add labels and a title
+xlabel('Step size (h)');
+ylabel('Absolute Error');
+title('Error of Finite Difference Approximation vs. Step Size');
+
