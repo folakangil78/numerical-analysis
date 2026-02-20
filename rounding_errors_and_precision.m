@@ -45,3 +45,29 @@ fprintf('Computer result:         %2.20f\n\n', b_computer);
 n_values = [5, 10, 20];
 
 fprintf('Results for Part (b): Hilbert Matrix Rounding Errors \n\n');
+
+for i = 1:length(n_values)
+    n = n_values(i);
+    
+    % 1. Create n-th Hilbert matrix and column vector e_n of all 1's
+    H = hilb(n);
+    e = ones(n, 1);
+    
+    % 2. Calculate the exact analytical value
+    % Mathematically, a matrix multiplied by its inverse is the identity matrix (I).
+    % So, H * (H^-1 * e) simplifies to I * e, which is just e. 
+    % Therefore, the exact Euclidean norm ||e - e|| is exactly 0.
+    exact_val = 0;
+    
+    % 3. Calculate numerically computed value using Euclidean norm (2-norm)
+    % being close to singular or badly scaled
+    numerical_val = norm(H * (inv(H) * e) - e);
+    
+    % 4. Calculate condition number of H_n (using the default 2-norm)
+    condition_num = cond(H);
+    
+    fprintf('For n = %d:\n', n);
+    fprintf('  Exact value:              %d\n', exact_val);
+    fprintf('  Numerically computed:     %e\n', numerical_val);
+    fprintf('  Condition number cond(H): %e\n\n', condition_num);
+end
