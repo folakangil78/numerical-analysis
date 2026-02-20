@@ -38,3 +38,10 @@ fprintf('Computer result:         %2.20f\n\n', b_computer);
 % simply rounds off and evaluates to 1. 
 % Finally, the outer calculation becomes 1 - 1, resulting in exactly 0. 
 % The 10^-16 term has been completely "absorbed" due to finite precision.
+
+% Part (b)
+
+% Define values of n to test
+n_values = [5, 10, 20];
+
+fprintf('Results for Part (b): Hilbert Matrix Rounding Errors \n\n');
