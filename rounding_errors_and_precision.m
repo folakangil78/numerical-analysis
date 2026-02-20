@@ -138,3 +138,19 @@ title('Error of Finite Difference Approximation vs. Step Size');
 % square root of machine epsilon, which is ~10^-16). At this point, the 
 % trade-off between truncation error and floating-point 
 % rounding error is balanced.
+
+% part (d)
+
+% Set format to long to see the digits of accuracy
+format long;
+
+% 1. Define the given parameters
+C = 1.0;
+r = 0.025;
+n = 10^16;
+
+% 2. Calculate using the naive/standard formula provided in equation (1)
+f_naive = C * (1 + r/n)^n;
+
+% 3. Calculate using the limit approximation for reference
+f_limit = exp(0.025);
