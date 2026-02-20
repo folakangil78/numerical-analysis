@@ -38,3 +38,15 @@ end
 %% ---- Compute iterates ----
 X1 = runNewton(x0_1, f, J, maxIter);
 X2 = runNewton(x0_2, f, J, maxIter);
+
+%% ---- Plot curves S1 and S2 ----
+[x,y] = meshgrid(linspace(-4,4,400));
+
+F1 = x.^2 + y.^2 - 4;      % same as f1
+F2 = x - y - 1;            % same as f2
+
+figure;
+hold on; grid on;
+
+contour(x,y,F1,[0 0],'LineWidth',2,'LineColor','b');
+contour(x,y,F2,[0 0],'LineWidth',2,'LineColor','r');
