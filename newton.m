@@ -24,7 +24,8 @@ q = 2; % potential order of convg
 figure(2)
 loglog(abs(x(2:k-2) - x(1:k-3)), abs(x(3:k-1) - x(2:k-2)), 'o-'); % plot increments on a log-log scale
 hold on
-loglog(abs(x(2:k-2) - x(1:k-3)), abs(x(2:k-2) - x(1:k-3)).^q, 'r--'); % jj
+loglog(abs(x(2:k-2) - x(1:k-3)), abs(x(2:k-2) - x(1:k-3)).^q, 'r--'); % reference line for q-order convg
+
 
 figure(3)
 xplot = -5:0.01:5; % range of x values for plotting
