@@ -5,7 +5,7 @@ normInf = max(sum(abs(A),2));   % row sums
 
 end
 
-sizes = zeros(1,8);
+sizes = zeros(0,8);
 times = zeros(1,8);
 
 n = 100;
@@ -27,3 +27,10 @@ end
 
 disp([sizes' times'])
 
+% part 2d
+
+sizes = zeros(1,8);
+myTimes = zeros(1,8);
+builtinTimes = zeros(1,8);
+
+n = 100;
