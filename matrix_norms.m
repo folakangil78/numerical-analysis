@@ -66,3 +66,5 @@ ylabel('Time (seconds)')
 title('Norm computation timing')
 grid on
 
+speedFactor = mean(myTimes ./ builtinTimes)
+% speed factr, prob show that built-in functions are usually 2–10× faster
