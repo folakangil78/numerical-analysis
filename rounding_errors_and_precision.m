@@ -188,3 +188,5 @@ fprintf('Stable evaluation (log1p):      %2.15f\n\n', f_stable);
 % By evaluating f as C * exp(n * log1p(r/n)), we bypass the 
 % addition step that causes the loss of significance, yielding an exact, 
 % accurate result without relying on limit approximation
+
+
