@@ -56,3 +56,13 @@ for k = 1:8
     n = 2*n;
 
 end
+
+plot(sizes,myTimes,'-o')
+hold on
+plot(sizes,builtinTimes,'-x')
+legend('My code','MATLAB norm')
+xlabel('Matrix size n')
+ylabel('Time (seconds)')
+title('Norm computation timing')
+grid on
+
