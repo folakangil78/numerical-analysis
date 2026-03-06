@@ -7,3 +7,11 @@ A = [exp(X) X.^2 X ones(size(X))];
 
 % Solve least squares problem
 beta = A\Y;
+
+a = beta(1);
+b = beta(2);
+c = beta(3);
+d = beta(4);
+
+disp('Coefficients:')
+disp(beta)
