@@ -15,3 +15,17 @@ d = beta(4);
 
 disp('Coefficients:')
 disp(beta)
+
+% Generate smooth curve for plotting
+xplot = linspace(min(X),max(X),200);
+yplot = a*exp(xplot) + b*xplot.^2 + c*xplot + d;
+
+% Plot
+figure
+plot(X,Y,'ro')      % data points only
+hold on
+plot(xplot,yplot)   % best fit curve
+xlabel('X')
+ylabel('Y')
+title('Least Squares Fit')
+legend('Data','Best Fit')
