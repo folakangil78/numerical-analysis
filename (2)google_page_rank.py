@@ -24,3 +24,31 @@ plt.title("Part (a): Sparsity Structure of Matrix L")
 plt.xlabel("Column Index (Websites)")
 plt.ylabel("Row Index (Websites)")
 plt.show()
+
+# ---------------------------------------------------------
+# Part (b): Plot the complex eigenvalues of L
+# ---------------------------------------------------------
+eigvals_L = np.linalg.eigvals(L)
+
+plt.figure(figsize=(6, 6))
+# Plot eigenvalues without connecting lines
+plt.plot(eigvals_L.real, eigvals_L.imag, 'bo', markersize=4, label='Eigenvalues of L')
+
+# Plot the unit circle
+theta = np.linspace(0, 2*np.pi, 200)
+plt.plot(np.cos(theta), np.sin(theta), 'r--', label='Unit Circle')
+
+plt.title("Part (b): Eigenvalues of Stochastic Matrix L")
+plt.xlabel("Real Part")
+plt.ylabel("Imaginary Part")
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.xlim(-1.2, 1.2)
+plt.ylim(-1.2, 1.2)
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Verify max eigenvalue is 1 (allowing for floating point inaccuracy)
+max_eig_val = np.max(np.abs(eigvals_L))
+print(f"Maximum eigenvalue magnitude for L: {max_eig_val:.6f}")
