@@ -52,3 +52,36 @@ plt.show()
 # Verify max eigenvalue is 1 (allowing for floating point inaccuracy)
 max_eig_val = np.max(np.abs(eigvals_L))
 print(f"Maximum eigenvalue magnitude for L: {max_eig_val:.6f}")
+
+# ---------------------------------------------------------
+# Part (c): Study the influence of kappa on matrix S
+# ---------------------------------------------------------
+E = np.ones((n, n)) / n
+kappa_values = [0.95, 0.85, 0.50]
+
+plt.figure(figsize=(15, 5))
+
+for i, kappa in enumerate(kappa_values):
+    S = kappa * L + (1 - kappa) * E
+    eigvals_S = np.linalg.eigvals(S)
+    
+    plt.subplot(1, 3, i+1)
+    plt.plot(eigvals_S.real, eigvals_S.imag, 'go', markersize=4)
+    plt.plot(np.cos(theta), np.sin(theta), 'r--')
+    
+    # Plot a circle representing the new spectral radius bound (kappa)
+    plt.plot(kappa * np.cos(theta), kappa * np.sin(theta), 'k:', label=f'Radius = {kappa}')
+    
+    plt.title(f"Eigenvalues of S (kappa = {kappa})")
+    plt.xlabel("Real Part")
+    if i == 0:
+        plt.ylabel("Imaginary Part")
+    plt.xlim(-1.2, 1.2)
+    plt.ylim(-1.2, 1.2)
+    plt.axhline(0, color='black', linewidth=0.5)
+    plt.axvline(0, color='black', linewidth=0.5)
+    plt.legend()
+    plt.grid(True)
+
+plt.tight_layout()
+plt.show()
