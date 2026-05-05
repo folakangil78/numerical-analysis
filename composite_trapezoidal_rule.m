@@ -82,3 +82,23 @@ legend('observed errors', sprintf('LS fit: C m^{%.2f}', kappa_a), 'Location','so
 fprintf('========================================================\n');
 fprintf('  PART (c): Repeat with a = 0  (endpoint singularity in f'''')\n');
 fprintf('========================================================\n\n');
+
+a2       = 0.0;
+I_exact2 = 2/3;                          % integral of sqrt(x) on [0,1]
+errors_c = zeros(size(m_list));
+ 
+fprintf('   m         T_m            |error|\n');
+fprintf('   --        ----           -------\n');
+for k = 1:length(m_list)
+    m            = m_list(k);
+    T_m          = trapez(f, a2, b, m);
+    errors_c(k)  = abs(T_m - I_exact2);
+    fprintf('  %4d   %.10f   %.3e\n', m, T_m, errors_c(k));
+end
+fprintf('\n');
+ 
+[D_c, kappa_c] = fit_convergence_rate(m_list, errors_c);
+ 
+fprintf('  Empirical convergence rate (a = 0):   kappa = %.4f\n', kappa_c);
+fprintf('  Implied constant:                     C     = %.4f\n', exp(D_c));
+fprintf('\n');
