@@ -64,3 +64,21 @@ fprintf('  which predicts kappa = -2 whenever f'''' is bounded on [a,b].\n');
 fprintf('  Here f(x) = sqrt(x) gives f''''(x) = -1/(4 x^(3/2)), which is\n');
 fprintf('  bounded on [0.1, 1] (max|f''''| = (1/4)*(0.1)^(-3/2) ~ 7.91).\n');
 fprintf('  Hence we expect kappa ~ -2, and indeed observe kappa ~ %.3f.\n\n', kappa_a);
+
+% --- Overlay the fitted line on the plot --------------------------------
+figure('Name','Part (b): error vs m with LS fit');
+loglog(m_list, errors_a, 'o', 'LineWidth', 1.5, 'MarkerSize', 8); hold on;
+m_fine = logspace(log10(m_list(1)), log10(m_list(end)), 100);
+loglog(m_fine, exp(D_a) * m_fine.^kappa_a, '--', 'LineWidth', 1.5);
+grid on;
+xlabel('m (number of subintervals)');
+ylabel('|error|');
+title(sprintf('Part (b): a=0.1, fitted kappa = %.3f', kappa_a));
+legend('observed errors', sprintf('LS fit: C m^{%.2f}', kappa_a), 'Location','southwest');
+ 
+%% =====================================================================
+%  PART (c): Repeat with a = 0  (singular f'' at the endpoint)
+%  =====================================================================
+fprintf('========================================================\n');
+fprintf('  PART (c): Repeat with a = 0  (endpoint singularity in f'''')\n');
+fprintf('========================================================\n\n');
