@@ -135,3 +135,55 @@ title('Trapezoidal error: smooth vs. endpoint-singular case');
 legend('a = 0.1 (smooth)', 'a = 0 (singular f'''')', ...
        'reference slope -2', 'reference slope -1.5', ...
        'Location','southwest');
+
+%% =====================================================================
+%  SUPPORTING FUNCTIONS
+%  =====================================================================
+ 
+function T = trapez(f, a, b, m)
+    % TRAPEZ  Composite trapezoidal rule on [a,b] with m subintervals.
+    %
+    %   T = trapez(f, a, b, m) where f is either:
+    %     - a function handle  (f is evaluated at the m+1 nodes), or
+    %     - a numeric vector of length m+1 containing f(x_0), ..., f(x_m)
+    %       already evaluated at the equally spaced nodes.
+    %
+    %   Returns
+    %       T = h * ( f(x_0)/2 + f(x_1) + ... + f(x_{m-1}) + f(x_m)/2 )
+    %   where h = (b-a)/m and x_i = a + i*h.
+ 
+    h = (b - a) / m;
+ 
+    if isa(f, 'function_handle')
+        x  = a + (0:m).' * h;       % column vector of nodes
+        fv = f(x);                  % evaluate f at all nodes
+    elseif isnumeric(f)
+        if numel(f) ~= m + 1
+            error('trapez:badVector', ...
+                  'When f is a vector it must have length m+1 = %d.', m+1);
+        end
+        fv = f(:);                  % force column
+    else
+        error('trapez:badInput', ...
+              'f must be a function handle or numeric vector.');
+    end
+ 
+    % Composite trapezoidal sum: weights are [1/2, 1, 1, ..., 1, 1/2] * h
+    T = h * ( sum(fv) - 0.5 * (fv(1) + fv(end)) );
+end
+ 
+function [D, kappa] = fit_convergence_rate(m_list, errors)
+    % FIT_CONVERGENCE_RATE  Least-squares fit of  log(E) = D + kappa*log(m).
+    %
+    %   Given vectors m_list (subinterval counts) and errors (|E_m|),
+    %   solves the linear least-squares problem
+    %       [1, log(m_i)] * [D; kappa] ~ log(error_i)
+    %   and returns the intercept D and slope kappa.
+ 
+    log_m = log(m_list(:));
+    log_E = log(errors(:));
+    A     = [ones(size(log_m)), log_m];   % design matrix
+    coeff = A \ log_E;                    % solves the LS problem
+    D     = coeff(1);
+    kappa = coeff(2);
+end
