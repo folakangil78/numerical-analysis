@@ -33,3 +33,24 @@ for k = 1:length(m_list)
     fprintf('  %4d   %.10f   %.3e\n', m, T_m, errors_a(k));
 end
 fprintf('\n');
+
+
+% --- Log-log plot of error vs m -----------------------------------------
+figure('Name','Part (a): error vs m');
+loglog(m_list, errors_a, 'o-', 'LineWidth', 1.5, 'MarkerSize', 8); grid on;
+xlabel('m (number of subintervals)');
+ylabel('|error|');
+title('Part (a): Trapezoidal error on [0.1, 1] for f(x) = sqrt(x)');
+ 
+%% =====================================================================
+%  PART (b): Estimate the convergence rate kappa via least squares
+%  =====================================================================
+fprintf('========================================================\n');
+fprintf('  PART (b): Least-squares fit of  log(error) = D + kappa*log(m)\n');
+fprintf('========================================================\n\n');
+ 
+[D_a, kappa_a] = fit_convergence_rate(m_list, errors_a);
+ 
+fprintf('  Empirical convergence rate (a = 0.1): kappa = %.4f\n', kappa_a);
+fprintf('  Implied constant:                     C     = %.4f\n', exp(D_a));
+fprintf('\n');
