@@ -54,3 +54,13 @@ fprintf('========================================================\n\n');
 fprintf('  Empirical convergence rate (a = 0.1): kappa = %.4f\n', kappa_a);
 fprintf('  Implied constant:                     C     = %.4f\n', exp(D_a));
 fprintf('\n');
+
+% --- Theoretical comparison --------------------------------------------
+fprintf('  THEORETICAL COMPARISON:\n');
+fprintf('  ------------------------\n');
+fprintf('  The composite trapezoidal rule satisfies\n');
+fprintf('       |E| <= (b-a)^3 / (12 m^2) * max|f''''(x)|,\n');
+fprintf('  which predicts kappa = -2 whenever f'''' is bounded on [a,b].\n');
+fprintf('  Here f(x) = sqrt(x) gives f''''(x) = -1/(4 x^(3/2)), which is\n');
+fprintf('  bounded on [0.1, 1] (max|f''''| = (1/4)*(0.1)^(-3/2) ~ 7.91).\n');
+fprintf('  Hence we expect kappa ~ -2, and indeed observe kappa ~ %.3f.\n\n', kappa_a);
