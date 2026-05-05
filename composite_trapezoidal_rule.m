@@ -102,3 +102,36 @@ fprintf('\n');
 fprintf('  Empirical convergence rate (a = 0):   kappa = %.4f\n', kappa_c);
 fprintf('  Implied constant:                     C     = %.4f\n', exp(D_c));
 fprintf('\n');
+
+% --- Discussion: can the theoretical estimate still be used? ------------
+fprintf('  CAN THE THEORETICAL ESTIMATE STILL BE APPLIED?\n');
+fprintf('  ----------------------------------------------\n');
+fprintf('  No. The standard bound\n');
+fprintf('       |E| <= (b-a)^3 / (12 m^2) * max|f''''(x)|\n');
+fprintf('  requires f'''' to be BOUNDED on [a,b]. For f(x) = sqrt(x) we\n');
+fprintf('  have f''''(x) = -1/(4 x^(3/2)), which blows up as x -> 0+.\n');
+fprintf('  Therefore max_{[0,1]} |f''''(x)| = +infinity and the bound\n');
+fprintf('  is vacuous (it gives |E| <= infinity).\n\n');
+fprintf('  The empirical rate drops from kappa ~ -2 (smooth case) to\n');
+fprintf('  kappa ~ %.2f. This matches the well-known result that for\n', kappa_c);
+fprintf('  integrands of the form x^alpha with alpha in (0,1), the\n');
+fprintf('  trapezoidal rule converges at rate m^-(1+alpha). Here\n');
+fprintf('  alpha = 1/2, predicting kappa = -3/2 = -1.5, in agreement\n');
+fprintf('  with the observed value.\n');
+fprintf('  To recover O(m^-2), one would need a singularity-aware rule\n');
+fprintf('  (e.g., a substitution x = u^2, graded mesh, or Gauss-Jacobi).\n\n');
+ 
+% --- Side-by-side comparison plot --------------------------------------
+figure('Name','Part (c): comparison a=0.1 vs a=0');
+loglog(m_list, errors_a, 'o-', 'LineWidth', 1.5, 'MarkerSize', 8); hold on;
+loglog(m_list, errors_c, 's-', 'LineWidth', 1.5, 'MarkerSize', 8);
+% Reference slopes
+loglog(m_list, errors_a(1) * (m_list/m_list(1)).^(-2), 'k--');
+loglog(m_list, errors_c(1) * (m_list/m_list(1)).^(-1.5), 'k:');
+grid on;
+xlabel('m (number of subintervals)');
+ylabel('|error|');
+title('Trapezoidal error: smooth vs. endpoint-singular case');
+legend('a = 0.1 (smooth)', 'a = 0 (singular f'''')', ...
+       'reference slope -2', 'reference slope -1.5', ...
+       'Location','southwest');
